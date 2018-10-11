@@ -121,15 +121,16 @@ DATE_FORMAT = 'm/d/Y'
 TIME_FORMAT = 'G:H'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:S'
 
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# Add static folder to STATIC_DIRS
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-# for /static/root/favicon.ico
-WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'root')
+STATIC_URL = '/static/'
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'root')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

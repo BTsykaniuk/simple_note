@@ -50,7 +50,7 @@
     };
 
     $(window).on('load', function () {
-        $.getJSON('testnotes.herokuapp.com/api/note/', function (response) {
+        $.getJSON('https://testnotes.herokuapp.com/api/note/', function (response) {
             $.each(response, function () {
                 display_note(this)
             })
@@ -62,7 +62,7 @@
             event.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: 'testnotes.herokuapp.com/api/note/',
+                url: 'https://testnotes.herokuapp.com/api/note/',
                 data: $('#textField').serialize(),
                 success: function (response) {
                     display_note(response);
