@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+from decouple import config
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -20,6 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c'
+
+SECRET_KEY = config('g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c')
+DEBUG = config('DEBUG', default=False, cast=bool)
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('postgres://iskpndmtobjvby:22fff7c730cb8f935d7ff43205bcb55803ab820687504447b555348ce5a67e9b@ec2-174-129-236-147.compute-1.amazonaws.com:5432/d72vej0q32hj7n')
+    )
+}
 
 ALLOWED_HOSTS = []
 
@@ -118,24 +129,4 @@ REST_FRAMEWORK = {
     )
 }
 
-SERVER = os.getenv('SERVER')
-if SERVER == 'production':
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = False
-if SERVER == 'develoment':
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
-    # Database
-    # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'simplenote',
-            'USER': 'noteuser',
-            'PASSWORD': 'note_password',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
 
