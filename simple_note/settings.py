@@ -25,14 +25,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c'
 
 DEBUG = config('DEBUG', default=False, cast=bool)
+
+
+ALLOWED_HOSTS = []
 DATABASES = {
     'default': dj_database_url.config(
         default=config(
             'postgres://iskpndmtobjvby:22fff7c730cb8f935d7ff43205bcb55803ab820687504447b555348ce5a67e9b@ec2-174-129-236-147.compute-1.amazonaws.com:5432/d72vej0q32hj7n')
     )
 }
-
-ALLOWED_HOSTS = []
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Application definition
 
