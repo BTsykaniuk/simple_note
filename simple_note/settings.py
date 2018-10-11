@@ -22,7 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c')
+SECRET_KEY = 'g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c'
+
 DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
     'default': dj_database_url.config(
