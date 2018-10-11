@@ -122,9 +122,9 @@ TIME_FORMAT = 'G:H'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:S'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = "/simple_note/static/"
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'simple_note/static'),
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # for /static/root/favicon.ico
