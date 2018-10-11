@@ -121,15 +121,15 @@ DATE_FORMAT = 'm/d/Y'
 TIME_FORMAT = 'G:H'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:S'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'root')
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static', 'root')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 REST_FRAMEWORK = {
