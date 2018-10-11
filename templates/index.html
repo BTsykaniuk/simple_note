@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body id="#wbForm">
-<h1>Hello world</h1>
+<h1>Simple notes</h1>
 
 <form>
     <textarea cols='60' rows='10' id="textField" name="message"></textarea> <br/>
@@ -50,7 +50,7 @@
     };
 
     $(window).on('load', function () {
-        $.getJSON('http://127.0.0.1:8000/api/note/', function (response) {
+        $.getJSON('testnotes.herokuapp.com/api/note/', function (response) {
             $.each(response, function () {
                 display_note(this)
             })
@@ -62,7 +62,7 @@
             event.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: 'http://127.0.0.1:8000/api/note/',
+                url: 'testnotes.herokuapp.com/api/note/',
                 data: $('#textField').serialize(),
                 success: function (response) {
                     display_note(response);
