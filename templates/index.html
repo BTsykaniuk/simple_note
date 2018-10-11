@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello world</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body id="#wbForm">
+<h1>Hello world</h1>
+
+<form>
+    <textarea cols='60' rows='10' id="textField" name="message"></textarea> <br/>
+    <input type="button" id="btn" value="Add"/>
+</form>
+<hr><br>
+
+<div id="notes_list">
+</div>
+
+
+<script>
+    const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{6}Z$/;
+
+    function formatDate(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+    }
+
+    function formatJSONDate(value) {
+        if (typeof value === "string" && dateFormat.test(value)) {
+            var d = new Date(value);
+            return formatDate(d)
+        }
+
+        return value;
+    }
+
+    function display_note(data) {
+        $('#notes_list').append('<div class="note" id="' + data['unique_words'] + '"></div>');
+        $('#notes_list').find('#' + data["unique_words"]).append('<div id="date">' + formatJSONDate(data['created_date']) + '</div>');
+        $('#notes_list').find('#' + data["unique_words"]).append('<div id="message">Note:' + data['message'] + '</div>');
+        $('#notes_list').find('#' + data["unique_words"]).append('<div id="unique_words">Uniqe words:' + data['unique_words'] + '</div><hr><br>');
+    };
+
+    $(window).on('load', function () {
+        $.getJSON('http://127.0.0.1:8000/api/note/', function (response) {
+            $.each(response, function () {
+                display_note(this)
+            })
+        })
+    });
+
+    $(document).ready(function () {
+        $('#btn').click(function () {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'http://127.0.0.1:8000/api/note/',
+                data: $('#textField').serialize(),
+                success: function (response) {
+                    display_note(response);
+                    var $notes = $("div.note");
+
+                    var noteOrder = $notes.sort(function (a, b) {
+                        return +$(a).data('id') - +$(b).data('id');
+                    });
+                    $("#notes_list").html(noteOrder);
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
