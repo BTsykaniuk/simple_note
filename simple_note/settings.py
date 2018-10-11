@@ -26,7 +26,7 @@ SECRET_KEY = 'g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c'
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['https://testnotes.herokuapp.com/']
+ALLOWED_HOSTS = ['testnotes.herokuapp.com']
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
