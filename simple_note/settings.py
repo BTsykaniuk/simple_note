@@ -22,13 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c'
-
 SECRET_KEY = config('g=tl&ivtr&!-ekzl=6265azv#)8(yeyyxq-xtb(7a1a@vfl-1c')
 DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('postgres://iskpndmtobjvby:22fff7c730cb8f935d7ff43205bcb55803ab820687504447b555348ce5a67e9b@ec2-174-129-236-147.compute-1.amazonaws.com:5432/d72vej0q32hj7n')
+        default=config(
+            'postgres://iskpndmtobjvby:22fff7c730cb8f935d7ff43205bcb55803ab820687504447b555348ce5a67e9b@ec2-174-129-236-147.compute-1.amazonaws.com:5432/d72vej0q32hj7n')
     )
 }
 
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 
     # Third Party Packages
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'simple_note.urls'
@@ -118,15 +119,19 @@ DATE_FORMAT = 'm/d/Y'
 TIME_FORMAT = 'G:H'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:S'
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
-
