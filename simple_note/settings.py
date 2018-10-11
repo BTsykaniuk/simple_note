@@ -121,7 +121,7 @@ DATE_FORMAT = 'm/d/Y'
 TIME_FORMAT = 'G:H'
 DATETIME_FORMAT = '%d-%m-%Y %H:%M:S'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
